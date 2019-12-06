@@ -14,39 +14,46 @@
 
 #include <LMS7002M/LMS7002M_time.h>
 #include <stdbool.h>
-#include <sys/time.h>
-#include <sys/select.h>
-#include <unistd.h>
+#include <cstddef>
+//#include <sys/time.h>
+//#include <sys/select.h>
+//#include <unistd.h>
+//#include <WaitingPolicy.h>
+
+
+
 
 long long LMS7_time_tps(void)
 {
-    return 1000000;
+    //return 1000000;
+    return 1000;
 }
 
 long long LMS7_time_now(void)
 {
-    struct timeval now_tv;
-    gettimeofday(&now_tv, NULL);
-    return (LMS7_time_tps()*now_tv.tv_sec) + now_tv.tv_usec;
+//    struct timeval now_tv;
+//    gettimeofday(&now_tv, NULL);
+//    return (LMS7_time_tps()*now_tv.tv_sec) + now_tv.tv_usec;
 }
 
 void LMS7_sleep_for(const long long ticks)
 {
-    LMS7_sleep_until(LMS7_time_now() + ticks);
+    waiting1mspolicy.wait<ticks,boost::chrono::milliseconds>();
+    //LMS7_sleep_until(LMS7_time_now() + ticks);
 }
 
 void LMS7_sleep_until(const long long ticks)
 {
-    //we must loop in case of spurious wake-ups
-    while (true)
-    {
-        const long long left = ticks - LMS7_time_now();
-        if (left < 0) break; //time expired -> done here
-
-        //otherwise sleep for the time left
-        struct timeval tv;
-        tv.tv_sec = left/LMS7_time_tps();
-        tv.tv_usec = left%LMS7_time_tps();
-        select(1, NULL, NULL, NULL, &tv);
+//    //we must loop in case of spurious wake-ups
+//    while (true)
+//    {
+//        const long long left = ticks - LMS7_time_now();
+//        if (left < 0) break; //time expired -> done here
+//
+//        //otherwise sleep for the time left
+//        struct timeval tv;
+//        tv.tv_sec = left/LMS7_time_tps();
+//        tv.tv_usec = left%LMS7_time_tps();
+//        select(1, NULL, NULL, NULL, &tv);
     }
 }

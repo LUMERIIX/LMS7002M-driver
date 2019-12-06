@@ -104,14 +104,16 @@ void LMS7002M_configure_lml_port(LMS7002M_t *self, const LMS7002M_port_t portNo,
     if (portNo == LMS_PORT1)
     {
         self->regs->reg_0x0023_lml1_mode = REG_0X0023_LML1_MODE_TRXIQ;
-        self->regs->reg_0x0023_lml1_rxntxiq = (direction==LMS_TX)?
-            REG_0X0023_LML1_RXNTXIQ_RXIQ:REG_0X0023_LML1_RXNTXIQ_TXIQ; //WARNING: TX/RX perspective swap
+        self->regs->reg_0x0022_lml1_sisossdr = REG_0X0022_LML1_SISODDR;
+        self->regs->reg_0x0023_lml1_rxntxiq = (direction==LMS_TX) ?
+            REG_0X0023_LML1_RXNTXIQ_RXIQ : REG_0X0023_LML1_RXNTXIQ_TXIQ; //WARNING: TX/RX perspective swap
     }
     if (portNo == LMS_PORT2)
     {
         self->regs->reg_0x0023_lml2_mode = REG_0X0023_LML2_MODE_TRXIQ;
-        self->regs->reg_0x0023_lml2_rxntxiq = (direction==LMS_TX)?
-            REG_0X0023_LML2_RXNTXIQ_RXIQ:REG_0X0023_LML2_RXNTXIQ_TXIQ; //WARNING: TX/RX perspective swap
+        self->regs->reg_0x0022_lml2_sisossdr = REG_0X0022_LML2_SISODDR;
+        self->regs->reg_0x0023_lml2_rxntxiq = (direction==LMS_TX) ?
+            REG_0X0023_LML2_RXNTXIQ_RXIQ : REG_0X0023_LML2_RXNTXIQ_TXIQ; //WARNING: TX/RX perspective swap
     }
 
     //automatic directions based on mode above
@@ -203,8 +205,8 @@ void LMS7002M_setup_digital_loopback(LMS7002M_t *self)
 void LMS7002M_set_mac_ch(LMS7002M_t *self, const LMS7002M_chan_t channel)
 {
     //pick the register map and setting based on channel
-    int newValue = 0;
-    LMS7002M_regs_t *regs = NULL;
+    int newValue = REG_0X0020_MAC_CHA;
+    LMS7002M_regs_t *regs = &self->_regs[0];
     switch (channel)
     {
     case LMS_CHA:
@@ -227,7 +229,8 @@ void LMS7002M_set_mac_ch(LMS7002M_t *self, const LMS7002M_chan_t channel)
     }
 
     //manually pick the first shadow bank for this setting
-    self->regs = self->_regs;
+    self->regs = &(self->_regs[0]);
+
     if (self->regs->reg_0x0020_mac != newValue)
     {
         self->regs->reg_0x0020_mac = newValue;

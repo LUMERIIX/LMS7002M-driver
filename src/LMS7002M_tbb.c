@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include "LMS7002M_impl.h"
-#include <LMS7002M/LMS7002M_logger.h>
+//#include <LMS7002M/LMS7002M_logger.h>
 
 void LMS7002M_tbb_enable(LMS7002M_t *self, const LMS7002M_chan_t channel, const bool enable)
 {
