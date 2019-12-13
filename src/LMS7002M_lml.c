@@ -111,7 +111,7 @@ void LMS7002M_configure_lml_port(LMS7002M_t *self, const LMS7002M_port_t portNo,
     if (portNo == LMS_PORT2)
     {
         self->regs->reg_0x0023_lml2_mode = REG_0X0023_LML2_MODE_TRXIQ;
-        self->regs->reg_0x0022_lml2_sisossdr = REG_0X0022_LML2_SISODDR;
+        self->regs->reg_0x0022_lml2_sisossdr = REG_0X0022_LML1_SISODDR;
         self->regs->reg_0x0023_lml2_rxntxiq = (direction==LMS_TX) ?
             REG_0X0023_LML2_RXNTXIQ_RXIQ : REG_0X0023_LML2_RXNTXIQ_TXIQ; //WARNING: TX/RX perspective swap
     }
@@ -169,6 +169,7 @@ void LMS7002M_configure_lml_port(LMS7002M_t *self, const LMS7002M_port_t portNo,
     }
 
     LMS7002M_regs_spi_write(self, 0x0023);
+    LMS7002M_regs_spi_write(self, 0x0022);
     LMS7002M_regs_spi_write(self, 0x002A);
     LMS7002M_regs_spi_write(self, 0x002B);
     LMS7002M_regs_spi_write(self, 0x002C);

@@ -14,7 +14,7 @@
 //------ this is a generated file, do not edit --------//
 
 #pragma once
-#include <stdio.h>
+#include <stddef.h>
 
 struct LMS7002M_regs_struct;
 typedef struct LMS7002M_regs_struct LMS7002M_regs_t;
@@ -38,6 +38,10 @@ static inline int LMS7002M_regs_get(LMS7002M_regs_t *regs, const int addr);
 #define REG_0X0020_MAC_CHAB 3
 #define REG_0X0021_SPIMODE_3WIRE 0
 #define REG_0X0021_SPIMODE_4WIRE 1
+#define REG_0X0022_LML1_SISODDR 1
+#define REG_0X0022_LML1_SISOSDR 0
+#define REG_0X0022_LML2_SISODDR 1
+#define REG_0X0022_LML2_SISOSDR 0
 #define REG_0X0022_DIQ2_DS_4MA 0
 #define REG_0X0022_DIQ2_DS_8MA 1
 #define REG_0X0022_DIQ1_DS_4MA 0
@@ -226,18 +230,22 @@ struct LMS7002M_regs_struct
     int reg_0x0021_sclk_pe;
     int reg_0x0021_sen_pe;
     int reg_0x0021_spimode;
-    int reg_0x0022_diq2_ds;
-    int reg_0x0022_diq2_pe;
-    int reg_0x0022_iq_sel_en_2_pe;
-    int reg_0x0022_txnrx2_pe;
-    int reg_0x0022_fclk2_pe;
-    int reg_0x0022_mclk2_pe;
-    int reg_0x0022_diq1_ds;
-    int reg_0x0022_diq1_pe;
-    int reg_0x0022_iq_sel_en_1_pe;
-    int reg_0x0022_txnrx1_pe;
-    int reg_0x0022_fclk1_pe;
-    int reg_0x0022_mclk1_pe;
+    int reg_0x0022_lml2_trxiqpulse;
+    int reg_0x0022_lml2_sisossdr;
+    int reg_0x0022_lml1_trxiqpulse;
+    int reg_0x0022_lml1_sisossdr;
+    int reg_0x0022_diq2_ds; //11
+    int reg_0x0022_diq2_pe; //10
+    int reg_0x0022_iq_sel_en_2_pe; //9
+    int reg_0x0022_txnrx2_pe; //8
+    int reg_0x0022_fclk2_pe; //7
+    int reg_0x0022_mclk2_pe; //6
+    int reg_0x0022_diq1_ds; //5
+    int reg_0x0022_diq1_pe; //4
+    int reg_0x0022_iq_sel_en_1_pe; //3
+    int reg_0x0022_txnrx1_pe; //2
+    int reg_0x0022_fclk1_pe; //1
+    int reg_0x0022_mclk1_pe; //0
     int reg_0x0023_diqdirctr2;
     int reg_0x0023_diqdir2;
     int reg_0x0023_diqdirctr1;
@@ -1115,6 +1123,8 @@ static inline void LMS7002M_regs_set(LMS7002M_regs_t *regs, const int addr, cons
     }
     if (addr == 0x0022)
     {
+        regs->reg_0x0022_lml2_sisossdr = (value >> 14) & 0x1;
+        regs->reg_0x0022_lml1_sisossdr = (value >> 12) & 0x1;
         regs->reg_0x0022_diq2_ds = (value >> 11) & 0x1;
         regs->reg_0x0022_diq2_pe = (value >> 10) & 0x1;
         regs->reg_0x0022_iq_sel_en_2_pe = (value >> 9) & 0x1;

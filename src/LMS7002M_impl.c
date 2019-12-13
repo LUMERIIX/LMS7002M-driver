@@ -30,8 +30,8 @@ LMS7002M_t *LMS7002M_create(LMS7002M_t *lms, LMS7002M_spi_transact_t transact, v
     if (self == NULL) return NULL;
     self->spi_transact = transact;
     self->spi_transact_handle = handle;
-//    LMS7002M_regs_init(&self->_regs[0]);
-//    LMS7002M_regs_init(&self->_regs[1]);
+    LMS7002M_regs_init(&self->_regs[0]);
+    LMS7002M_regs_init(&self->_regs[1]);
     self->regs = self->_regs;
     self->cgen_freq = 0.0;
     self->sxr_freq = 0.0;
@@ -54,7 +54,7 @@ void LMS7002M_spi_write(LMS7002M_t *self, const int addr, const int value)
 int LMS7002M_spi_read(LMS7002M_t *self, const int addr)
 {
     uint32_t data = (((uint32_t)addr) << 16);
-//    return self->spi_transact(self->spi_transact_handle, data, true/*readback*/) & 0xffff;
+    return self->spi_transact(self->spi_transact_handle, data, true/*readback*/) & 0xffff;
 }
 
 void LMS7002M_regs_spi_write(LMS7002M_t *self, const int addr)

@@ -85,7 +85,8 @@ typedef struct LMS7002M_struct LMS7002M_t;
  * \param handle arbitrary handle data for transact
  * \return a new instance of the LMS7002M driver
  */
-LMS7002M_API LMS7002M_t *LMS7002M_create(LMS7002M_spi_transact_t transact, void *handle);
+//LMS7002M_API LMS7002M_t *LMS7002M_create(LMS7002M_spi_transact_t transact, void *handle);
+LMS7002M_API LMS7002M_t *LMS7002M_create(LMS7002M_t *lms, LMS7002M_spi_transact_t transact, void *handle);
 
 /*!
  * Destroy an instance of the LMS7002M driver.

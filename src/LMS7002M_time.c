@@ -14,7 +14,7 @@
 
 #include <LMS7002M/LMS7002M_time.h>
 #include <stdbool.h>
-#include <cstddef>
+#include <stddef.h>
 //#include <sys/time.h>
 //#include <sys/select.h>
 //#include <unistd.h>
